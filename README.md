@@ -1,132 +1,81 @@
-# SplitSmart - Dart Expense Splitter 💸
+# DevCamp 2.0 • Dart & Flutter Assignments Portfolio 🚀
 
-> **DevSource / DevCamp 2.0 • Week 1 • Project 1 • Compulsory**  
-> Built with modern Dart (Dart 3.x with Records, Pattern Matching, Sealed Classes, Collections, and Enums).
+> **DevSource / DevCamp 2.0 • Mobile App Development Track**  
+> Maintained by **[@hiyaraj97-dev](https://github.com/hiyaraj97-dev)**
 
-SplitSmart is a command-line expense sharing and debt settlement engine that tracks group expenses, calculates net balances for all members, handles equal and custom splits, suggests minimal settlement transfers, and validates transactions with custom exceptions.
+This repository hosts compulsory weekly assignments and capstone projects developed during **DevCamp 2.0**. Each project is organized into its own self-contained directory with dedicated source code, test suites, and documentation.
 
 ---
 
-## 🚀 Two Ways to Run the Project
+## 📂 Projects Directory
 
-### Option 1: Local Dart Terminal (Recommended)
+| Week | Project | Domain | Technologies | Folder Link |
+|---|---|---|---|---|
+| **Week 1** | **SplitSmart** | Expense Sharing & Debt Settlement | Modern Dart 3.x, Records, CLI, Unit Testing | [📁 `project1_splitsmart/`](project1_splitsmart/) |
+| **Week 2** | **Taskify (To-Do App)** | Daily Task Management & Persistence | Flutter (Material 3), Key-Value Storage, Theming, State Management | [📁 `project2_todo_app/`](project2_todo_app/) |
 
-From the project directory:
+---
+
+## ⚡ Quick Start & Run Guides
+
+### 1️⃣ Project 1: SplitSmart (Week 1 Compulsory)
+
+SplitSmart is a command-line expense sharing and debt settlement engine that tracks group expenses, calculates net balances, handles custom splits, and simplifies debt transfers.
 
 ```bash
-# 1. Run all demonstrations (including the compulsory DevCamp example):
+# Navigate to Project 1
+cd project1_splitsmart
+
+# Run all demonstrations (including the compulsory DevCamp test scenario):
 dart run main.dart
 
-# 2. Open the Interactive Terminal Menu (with dart:io keyboard prompts):
+# Open the Interactive Terminal Menu:
 dart run main.dart --interactive
-# or
-dart run bin/main.dart -i
 
-# 3. Run the automated unit tests:
-dart test
-# or using the zero-dependency test runner:
+# Run the comprehensive test suite (15/15 tests passing):
 dart run test/runner.dart
 ```
 
-### Option 2: DartPad Fallback (Browser-based)
-
-If you are using [DartPad](https://dartpad.dev/):
-1. Open [`dartpad_main.dart`](file:///C:/Users/Admin/.gemini/antigravity/scratch/splitsmart/dartpad_main.dart).
-2. Copy the entire file contents.
-3. Paste into DartPad and click **Run**.
-4. Both the compulsory specification example and multiple payer scenarios will execute immediately!
+*🌐 Browser Option: Copy [`project1_splitsmart/dartpad_main.dart`](project1_splitsmart/dartpad_main.dart) into [DartPad](https://dartpad.dev).*
 
 ---
 
-## 📋 Required Features Checklist
+### 2️⃣ Project 2: Taskify To-Do App (Week 2 Compulsory)
 
-| Feature | Status | Description |
-|---|---|---|
-| **Add Group Members** | ✅ Complete | Unique IDs/names, case-insensitive checks, duplicate validation (`DuplicateMemberException`). |
-| **Record Expenses** | ✅ Complete | Title, positive amount, payer validation, category enum, participant list, equal or custom split. |
-| **List & Filter Expenses** | ✅ Complete | Filter expenses by member (payer/participant) or by category. |
-| **Calculate Balances** | ✅ Complete | Computes Total Paid, Share Owed, and Net Balance across all expenses; returns typed Dart 3 records `({double totalPaid, double shareOwed, double netBalance})`. |
-| **Error Handling** | ✅ Complete | Descriptive custom exceptions for duplicate members, unknown members, negative/zero amounts, empty participants, and mismatched splits. |
-| **Compulsory Example** | ✅ Verified | Asha pays 900 for Dinner (split with Ravi & Neha) -> `Asha should receive INR 600; Ravi and Neha each owe INR 300.` |
-| **Multiple Payers** | ✅ Complete | Tested and demonstrated across multi-expense group trips. |
+Taskify is a Flutter to-do list application built with Material 3, input validation, categories, priorities, local persistent storage, dark mode, search, and progress tracking.
 
----
-
-## 🌟 Optional Extensions Implemented
-
-1. **Suggest Settlement Transfers**: Greedy debt simplification algorithm that computes the minimal transactions required to settle all debts (e.g. `Ravi pays Asha INR 300`).
-2. **Unequal & Custom Splits**: Support for exact amounts (`customShares`) and percentage splits (`percentages`) with validation.
-3. **Consistent Rounding**: Exact paise/cents allocation algorithm preventing fractional currency leaks when dividing amounts that don't divide evenly (e.g., INR 100 among 3 participants splits into 33.34, 33.33, 33.33 summing to 100.00).
-4. **Edit & Delete Expenses**: Full CRUD operations with automatic balance recalculation.
-5. **Local JSON Persistence**: `group.saveToFile('expenses.json')` and `ExpenseGroup.loadFromFile('expenses.json')`.
-6. **Dart 3 Records**: Member summaries returned as `({double totalPaid, double shareOwed, double netBalance})`.
-
----
-
-## 📂 Project Structure
-
-```
-splitsmart/
-├── bin/
-│   └── main.dart                     # Entry point forwarding to main.dart
-├── lib/
-│   ├── splitsmart.dart               # Library barrel export
-│   └── src/
-│       ├── category.dart             # ExpenseCategory enum with emojis and parser
-│       ├── cli.dart                  # Interactive terminal menu loop (dart:io)
-│       ├── exceptions.dart           # Custom exception hierarchy
-│       ├── expense.dart              # Expense model & split distribution algorithms
-│       ├── expense_group.dart        # ExpenseGroup service (core business logic)
-│       ├── member.dart               # Member entity
-│       └── settlement.dart           # DebtSettlementCalculator algorithm
-├── test/
-│   ├── runner.dart                   # Zero-dependency test runner
-│   └── splitsmart_test.dart          # Comprehensive unit tests (dart test)
-├── dartpad_main.dart                 # Self-contained single file for DartPad
-├── main.dart                         # Compulsory specification & demo runner
-└── pubspec.yaml                      # Project configuration and dependencies
-```
-
----
-
-## 💡 Quick Code Example
-
-```dart
-import 'package:splitsmart/splitsmart.dart';
-
-void main() {
-  final group = ExpenseGroup();
-  group.addMember('Asha');
-  group.addMember('Ravi');
-  group.addMember('Neha');
-
-  group.addExpense(
-    title: 'Dinner',
-    amount: 900,
-    paidBy: 'Asha',
-    category: 'Food',
-    splitBetween: ['Asha', 'Ravi', 'Neha'],
-  );
-
-  // Prints: Asha should receive INR 600; Ravi and Neha each owe INR 300.
-  group.printBalances();
-
-  // Prints optimal transfers:
-  // 1. Ravi pays Asha INR 300
-  // 2. Neha pays Asha INR 300
-  for (final transfer in group.suggestSettlements()) {
-    print(transfer);
-  }
-}
-```
-
----
-
-## 🧪 Testing
-
-To execute all unit tests:
 ```bash
-dart test
+# Navigate to Project 2
+cd project2_todo_app
+
+# Run the Flutter application on Mobile, Desktop, or Chrome:
+flutter pub get
+flutter run
+# or specifically on Chrome:
+flutter run -d chrome
+
+# Run the automated verification test suite:
+dart test/runner.dart
 ```
-Result: **15 tests passed with 0 failures**.
-Code analysis: `dart analyze` reports **No issues found!**
+
+*🌐 Browser Option: Copy [`project2_todo_app/dartpad_main.dart`](project2_todo_app/dartpad_main.dart) into [DartPad Flutter](https://dartpad.dev/flutter) to run the full application with simulated persistent storage and theme toggle.*
+
+---
+
+## 📋 DevCamp Week 2 Specification Checklist
+
+- [x] **Add Task with Validation**: Modal sheet with title validation (`Task.validateTitle`), notes, priority, category, and due date.
+- [x] **Edit & Delete Tasks**: Quick tap to edit; swipe-to-delete with confirmation modal and floating **UNDO** snackbar.
+- [x] **Visual Completion Feedback**: Animated checkbox, strikethrough text, muted opacity, and sorting below active tasks.
+- [x] **Local Persistent Storage**: Key-value JSON persistence (`SharedPreferencesStorageService`) restoring tasks between sessions.
+- [x] **Categories & Priorities**: 6 categories with icons & badges, 3 urgency priority badges (High, Medium, Low).
+- [x] **Light / Dark Mode Toggle**: AppBar toggle switching between Material 3 Light and Slate Dark mode, persisted to storage.
+- [x] **Extensions Implemented**: Live search, status/category/priority filter chips, due date & overdue badges, progress summary card.
+- [x] **Tested & Verified**: 100% test pass rate across models, services, and specification lifecycle.
+
+---
+
+## 👥 Repository Author
+
+- GitHub: [@hiyaraj97-dev](https://github.com/hiyaraj97-dev)
+- Repository: [devcampassignment1](https://github.com/hiyaraj97-dev/devcampassignment1)
